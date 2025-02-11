@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fictional Dog Info</title>
+</head>
+<body>
+    <h1>Fictional Dog Information</h1>
+    <div id="dogInfo"></div> <!-- This is where the JavaScript will inject content -->
+
+    <script>
+        // Task 1: Create a literal object named myDog
+        const myDog = {
+            name: "Ace Hart",
+            breed: "German Shepherd",
+            tvProgram: "Dog City",
+            notes: "The detective.",
+            mySound: "I bark with authority, solving crimes with a growl and a grin!"
+        };
+
+        // Display the dog's information on the webpage
+        document.getElementById("dogInfo").innerHTML += `
+            <p>Meet <strong>${myDog.name}</strong>, a <strong>${myDog.breed}</strong> from the show "<em>${myDog.tvProgram}</em>". ${myDog.notes} ${myDog.mySound}</p>
+        `;
+
+        // Task 2: Create a constructor function to make a new dog object
+        function Dog(name, breed, tvProgram, notes, mySound, canTalk) {
+            this.name = name;
+            this.breed = breed;
+            this.tvProgram = tvProgram;
+            this.notes = notes;
+            this.mySound = mySound;
+            this.canTalk = canTalk;
+
+            // Adding a method to display the dog's greeting
+            this.myGreeting = function() {
+                let talkAbility = this.canTalk ? "I can talk!" : "I prefer to stay quiet.";
+                return `Hello! I'm <strong>${this.name}</strong>, a <strong>${this.breed}</strong> from "<em>${this.tvProgram}</em>". ${this.notes} ${this.mySound} ${talkAbility}`;
+            }
+        }
+
+        // Create an instance of Dog using the constructor
+        const myDogConst = new Dog("Ace Hart", "German Shepherd", "Dog City", "The detective.", 
+                                   "I bark with authority, solving crimes with a growl and a grin!", true);
+
+        // Display the greeting from the object method
+        document.getElementById("dogInfo").innerHTML += `
+            <p>${myDogConst.myGreeting()}</p>
+        `;
+    </script>
+</body>
+</html>
