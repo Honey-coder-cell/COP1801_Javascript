@@ -1,12 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Tip Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fictional Dogs Module 06</title>
 </head>
 <body>
-  <h1>Tip Calculator</h1>
-  <!-- We will include our script here -->
-  <script src="script.js"></script>
+    <h1>Fictional Dog Information</h1>
+    <div id="dogInfo"></div>
+    <div id="selectedDogInfo"></div> <!-- Display selected dog info here -->
+    
+    <script>
+        // Step 1: Modify the myGreeting method to evaluate if the dog can talk
+        function Dog(name, breed, tvProgram, notes, mySound, canTalk) {
+            this.name = name;
+            this.breed = breed;
+            this.tvProgram = tvProgram;
+            this.notes = notes;
+            this.mySound = mySound;
+            this.canTalk = canTalk;
+
+            // Updated myGreeting method with conditional logic
+            this.myGreeting = function() {
+                let talkAbility = this.canTalk ? "I can talk!" : "I cannot talk.";
+                return `Hello! I'm <strong>${this.name}</strong>, a <strong>${this.breed}</strong> from "<em>${this.tvProgram}</em>". ${this.notes} ${this.mySound} ${talkAbility}`;
+            }
+        }
+
+        // Step 2: Create two new dog objects from Wikipedia
+        const aceHart = new Dog("Ace Hart", "German Shepherd", "Dog City", "The detective.", 
+                                "I bark with authority, solving crimes with a growl and a grin!", true);
+                                
+        const brianGriffin = new Dog("Brian Griffin", "Labrador Retriever", "Family Guy", "A sophisticated, talking dog.", 
+                                     "I enjoy intellectual conversations and a good martini.", true);
+
+        const courage = new Dog("Courage", "Beagle", "Courage the Cowardly Dog", "A scared but brave dog.", 
+                                "I may be timid, but I'll protect my family no matter what!", false);
+
+        // Store all dogs in an object for easy lookup
+        const dogs = {
+            "Ace Hart": aceHart,
+            "Brian Griffin": brianGriffin,
+            "Courage": courage
+        };
+
+        // Step 3: Display all dogs using a for...in loop
+        let allDogsInfo = '';
+        for (let dogName in dogs) {
+            const dog = dogs[dogName];
+            allDogsInfo += `<p>${dog.myGreeting()}</p>`;
+        }
+        document.getElementById("dogInfo").innerHTML = allDogsInfo;
+
+        // Step 4: Prompt the user to select a dog
+        const selectedDogName = prompt("Enter the name of the dog you want to learn more about (e.g., 'Ace Hart', 'Brian Griffin', 'Courage'):");
+
+        // Step 5: Display selected dog info or an error message if not found
+        if (dogs[selectedDogName]) {
+            document.getElementById("selectedDogInfo").innerHTML = `<h2>Selected Dog:</h2><p>${dogs[selectedDogName].myGreeting()}</p>`;
+        } else {
+            document.getElementById("selectedDogInfo").innerHTML = `<p style="color:red;">Error: The dog "${selectedDogName}" does not exist in the list.</p>`;
+        }
+    </script>
 </body>
 </html>
